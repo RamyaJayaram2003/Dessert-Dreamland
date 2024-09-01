@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/cartstyle.css">
+</head>
+<button class="left-corner-button" onclick="nxt()">Logout</button>
+<body class="">
+    
+    <div class="container">
+        <header>
+            <h1>Shopping Cart</h1>
+            <div class="shopping">
+                <img src="image/shopping.svg">
+                <span class="quantity">0</span>
+            </div>
+        </header>
+
+        <div class="list">
+          
+        </div>
+    </div>
+    <div class="card">
+        <h1>Card</h1>
+        <ul class="listCard">
+        </ul>
+        <div class="checkOut">
+            <div class="total">0</div>
+            <div class="closeShopping">Close</div>
+        </div>
+
+        
+    </div> 
+    <script >
+        let openShopping = document.querySelector('.shopping');
+let closeShopping = document.querySelector('.closeShopping');
+let list = document.querySelector('.list');
+let listCard = document.querySelector('.listCard');
+let body = document.querySelector('body');
+let total = document.querySelector('.total');
+let quantity = document.querySelector('.quantity');
+
+openShopping.addEventListener('click', ()=>{
+    body.classList.add('active');
+})
+closeShopping.addEventListener('click', ()=>{
+    body.classList.remove('active');
+})
+
+let products = [
+    {
+
+
+
+        
+        id: 1,
+        name: 'Banana Cake',
+        image: 'cake2.PNG',
+        price: 800
+    },
+    {
+        id: 2,
+        name: 'White Cream Cake',
+        image: 'cake3.PNG',
+        price: 1500
+    },
+    {
+        id: 3,
+        name: 'StarBlue Cake',
+        image: 'cake4.PNG',
+        price: 1200
+    },
+    {
+        id: 4,
+        name: 'Chocklate Cake',
+        image: 'cake5.PNG',
+        price: 1000
+    },
+    {
+        id: 5,
+        name: 'Nutella Sea salt Molten cake',
+        image: 'cake6.PNG',
+        price: 2500
+    },
+    {
+        id: 6,
+        name: 'Funfetti Cake',
+        image: 'output.PNG',
+        price: 1200
+    },
+    {
+        id: 7,
+        name: 'Chocolate Strawberry Cake',
+        image: 'csc1.PNG',
+        price: 800
+    },
+    {
+        id: 8,
+        name: 'Chocolate Bundt Cake',
+        image: 'cbc2.PNG',
+        price: 1500
+    },
+    {
+        id: 9,
+        name: 'Chocolate-Peanut Butter Cake',
+        image: 'cpbc3.PNG',
+        price: 1200
+    },
+    {
+        id: 10,
+        name: 'Chocolate-Coconut Pavlova Cake',
+        image: 'c4.PNG',
+        price: 1000
+    },
+    {
+        id: 11,
+        name: 'Chocolate Fudge Layer Cake with Caramel Buttercream',
+        image: 'c5.PNG',
+        price: 2500
+    },
+    {
+        id: 12,
+        name: 'Chocolate-Zucchini Cake',
+        image: 'c6.PNG',
+        price: 1200
+    },
+
+    {
+        id: 13,
+        name: 'BASQUE BURNT CHEESECAKE',
+        image: 'ch1.PNG',
+        price: 800
+    },
+    {
+        id: 14,
+        name: 'NO-BAKE CHEESECAKE',
+        image: 'ch2.PNG',
+        price: 1500
+    },
+    {
+        id: 15,
+        name: 'JAPANESE CHEESECAKE',
+        image: 'ch3.PNG',
+        price: 1200
+    },
+    {
+        id: 16,
+        name: 'BAKLAVA CHEESECAKE',
+        image: 'ch4.PNG',
+        price: 1000
+    },
+    {
+        id: 17,
+        name: 'CHEESECAKE CAKE',
+        image: 'ch5.PNG',
+        price: 2500
+    },
+    {
+        id: 18,
+        name: 'CHEESECAKE COOKIES',
+        image: 'ch6.PNG',
+        price: 1200
+    },
+    {
+        id: 19,
+        name: 'Orange Poppy Seed Cake with Mascarpone Frosting',
+        image: 'f1.PNG',
+        price: 800
+    },
+    {
+        id: 20,
+        name: 'Lemon Poppy Seed Cake',
+        image: 'f2.PNG',
+        price: 1500
+    },
+    {
+        id: 21,
+        name: 'Lemon Blueberry Cake',
+        image: 'f3.PNG',
+        price: 1200
+    },
+    {
+        id: 22,
+        name: 'Pear & Walnut Cake with Honey Buttercream',
+        image: 'f4.PNG',
+        price: 1000
+    },
+    {
+        id: 23,
+        name: 'Bakewell Cake (Raspberry Almond Cake)',
+        image: 'f5.PNG',
+        price: 2500
+    },
+    {
+        id: 24,
+        name: 'Pineapple Cake (with dried Pineapple flowers)',
+        image: 'f6.PNG',
+        price: 1200
+    }
+];
+let selecteProductId = null;
+
+let listCards  = [];
+function initApp(){
+    products.forEach((value, key) =>{
+        let newDiv = document.createElement('div');
+        newDiv.classList.add('item');
+        newDiv.innerHTML = `
+            <img src="image/${value.image}">
+            <div class="title">${value.name}</div>
+            <div class="price">${value.price.toLocaleString()}</div>
+            <button onclick="buyNow(${key})">Buy Now</button>;
+            <button onclick="addToCard(${key})">Add To Cart</button>`;
+        list.appendChild(newDiv);
+    })
+}
+
+
+initApp();
+function addToCard(key){
+    if(listCards[key] == null){
+        // copy product form list to list card
+        listCards[key] = JSON.parse(JSON.stringify(products[key]));
+        listCards[key].quantity = 1;
+         // Send POST request to backend to add product to cart
+         fetch('/add-to-cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                productId:key,
+                quantity: 1
+            })
+        })
+        .then(response => {
+            if(response.ok) {
+                console.log('Product added to cart successfully');
+            } else {
+                console.error('Failed to add product to cart');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+    reloadCard();
+}
+
+
+    
+
+
+function reloadCard(){
+    listCard.innerHTML = '';
+    let count = 0;
+    let totalPrice = 0;
+    listCards.forEach((value, key)=>{
+        totalPrice = totalPrice + value.price;
+        count = count + value.quantity;
+        if(value != null){
+            let newDiv = document.createElement('li');
+            newDiv.innerHTML = `
+                <div><img src="image/${value.image}"/></div>
+                <div>${value.name}</div>
+                <div>${value.price.toLocaleString()}</div>
+                <div>
+                    <button onclick="changeQuantity(${key}, - 1)">-</button>
+                    <div class="count">${value.quantity}</div>
+                    <button onclick="changeQuantity(${key}, + 1)">+</button>
+                </div>`;
+                listCard.appendChild(newDiv);
+        }
+    })
+    total.innerText = totalPrice.toLocaleString();
+    quantity.innerText = count;
+}
+
+// Frontend JavaScript code
+
+function changeQuantity(key, quantityChange){
+    const newQuantity = listCards[key].quantity + quantityChange;
+
+    if (newQuantity >= 0) {
+        listCards[key].quantity = newQuantity;
+        listCards[key].price = newQuantity * products[key].price;
+
+        // Send POST request to backend to update product quantity in the cart
+        fetch('/update-quantity', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                productId: key,
+                quantity: newQuantity
+            })
+        })
+        .then(response => {
+            if(response.ok) {
+                console.log('Product quantity updated successfully');
+            } else {
+                console.error('Failed to update product quantity');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+        reloadCard();
+    }
+}
+function buyNow(key){
+    const product = products[key];
+    const quantityInput = prompt(`Enter the quantity for ${product.name}:`);
+    const quantity = parseInt(quantityInput);
+    
+    if (isNaN(quantity) || quantity <= 0) {
+        alert('Invalid quantity entered. Please enter a valid number greater than 0.');
+        return;
+    }
+
+    // Construct the URL with query parameters
+    const totalPrice =product.price *quantity;
+
+    //alert(`Product: ${product.name}\nQuantity: ${quantity}\nTotal Price: ${totalPrice.toLocaleString()} USD`);
+    alert(`Order placed successfully!\nProduct: ${product.name}\nQuantity: ${quantity}\nTotal Price: ${totalPrice.toLocaleString()} USD`);
+}
+
+function nxt(){
+        window.location.assign("login.html");
+      }
+
+</script>
+</body>
+</html>
