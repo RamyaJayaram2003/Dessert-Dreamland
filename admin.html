@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            background-image: url('./hanny-naibaho-aWXVxy8BSzc-unsplash.jpg') ;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .btn-container {
+            text-align: center;
+        }
+
+        .btn-container button {
+            padding: 20px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #85a8df;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-container button:hover {
+            background-color: #85a8df;
+        }
+        .left-corner-button {
+             position: fixed; 
+            top: 20px; 
+            left: 20px; 
+            padding: 10px 20px; 
+             background-color: #ffffff; 
+             color: #000000; 
+             border: none; 
+             border-radius: 5px; 
+             cursor: pointer; 
+             font-size: 16px; 
+        }
+        .left-corner-button:hover {
+            background-color: #ffffff; 
+        }
+    </style>
+    <script>
+      function nxt(){
+        window.location.assign("home.html");
+      }
+      function nxt1(){
+        window.location.assign("view_user.html");
+      }
+      function nxt2(){
+        window.location.assign("delete.html");
+      }
+      function nxt3(){
+        window.location.assign("insert.html");
+      }
+      function nxt4(){
+        window.location.assign("update.html");
+      }
+    </script>
+</head>
+<body>
+    <button class="left-corner-button" onclick="nxt()">Logout</button>
+    <div class="form-container">
+        
+        <form action="#">
+            <div class="form-group">
+                
+                <div class="btn-container">
+                    <button type="button" onclick="nxt1()" id="btn1">VIEW PRODUCTS</button>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+    <div class="form-container2">
+        
+        <form action="#">
+            <div class="form-group">
+                <div class="btn-container">
+                    <button type="button" onclick="nxt2()" id="btn2">DELETE PRODUCTS</button>
+                </div>
+            </div>
+        </form>
+    </div>  
+
+    <div class="form-container3">
+        
+        <form action="#">
+            <div class="form-group">
+                <div class="btn-container">
+                    <button type="button" onclick="nxt3()" id="btn2">INSERT PRODUCTS</button>
+                </div>
+            </div>
+        </form>
+    </div>  
+
+    <div class="form-container3">
+        
+        <form action="#">
+            <div class="form-group">
+                <div class="btn-container">
+                    <button type="button" onclick="nxt4()" id="btn2">UPDATE PRODUCTS</button>
+                </div>
+            </div>
+        </form>
+    </div>  
+
+</body>
+</html>
