@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Generation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Bill Generation</h1>
+        <form id="billForm">
+            <div class="form-group">
+                <label for="productName">Product Name:</label>
+                <input type="text" id="productName" name="productName" readonly>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" required>
+            </div>
+            <div class="form-group">
+                <label for="totalPrice">Total Price:</label>
+                <input type="text" id="totalPrice" name="totalPrice" readonly>
+            </div>
+            <button type="submit">Generate Bill</button>
+        </form>
+    </div>
+<style>
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+</style>
+
+<script>
+    // Function to parse query parameters from URL
+function getQueryParameter(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
+
+// Get product ID and name from query parameters
+const productId = getQueryParameter('productId');
+const productName = getQueryParameter('productName');
+
+// Set product name in the form
+document.getElementById('productName').value = productName;
+
+// Calculate total price based on quantity
+document.getElementById('billForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
+
+    const quantity = parseInt(document.getElementById('quantity').value);
+
+    if (isNaN(quantity) || quantity <= 0) {
+        alert('Invalid quantity entered. Please enter a valid number greater than 0.');
+        return;
+    }
+
+    const productPrice = getProductPrice(productId); // Assuming getProductPrice() is a function to get the price of the product
+    const totalPrice = productPrice * quantity;
+
+    // Set total price in the form
+    document.getElementById('totalPrice').value = totalPrice.toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+});
+
+// Mock function to get product price (replace this with actual logic)
+function getProductPrice(productId) {
+    // Mock data
+    const products = [
+        { id: 1, name: 'Banana Cake', price: 800 },
+        { id: 2, name: 'White Cream Cake', price: 1500 },
+        { id: 3, name: 'StarBlue Cake', price: 1200},
+        { id: 4, name: 'Chocklate Cake', price: 1200},
+        { id: 5, name: 'Nutella Sea salt Molten cake', price: 1200},
+        { id: 6, name: 'Funfetti Cake', price: 1200},
+        { id: 7, name: 'Chocolate Strawberry Cake', price: 1200},
+        { id: 8, name: 'Chocolate Bundt Cake', price: 1200},   
+        { id: 9, name: 'Chocolate-Peanut Butter Cake', price: 1200},
+        { id: 10, name: 'Chocolate-Peanut Butter Cake', price: 1200},
+        { id: 11, name: 'Chocolate Fudge Layer Cake with Caramel Buttercream', price: 1200},
+        { id: 12, name: 'Chocolate-Zucchini Cake', price: 1200},
+        { id: 13, name: 'BASQUE BURNT CHEESECAKE', price: 1200},
+        { id: 14, name: 'NO-BAKE CHEESECAKE', price: 1200},
+        { id: 15, name: 'JAPANESE CHEESECAKE', price: 1200},
+        { id: 16, name: 'BAKLAVA CHEESECAKE', price: 1200},
+        { id: 17, name: 'CHEESECAKE CAKE', price: 1200},
+        { id: 18, name: 'CHEESECAKE COOKIES', price: 1200},
+        { id: 19, name: 'Orange Poppy Seed Cake with Mascarpone Frosting', price: 1200},
+        { id: 20, name: 'Lemon Poppy Seed Cake', price: 1200},
+        { id: 21, name: 'Lemon Blueberry Cake', price: 1200},
+        { id: 22, name: 'Pear & Walnut Cake with Honey Buttercream', price: 1200},
+        { id: 23, name: 'Bakewell Cake (Raspberry Almond Cake)', price: 1200},
+        { id: 24, name:  'Pineapple Cake (with dried Pineapple flowers)', price: 1200},
+
+
+        // Add more products here
+    ];
+
+    const product = products.find(product => product.id == productId);
+    return product ? product.price : 0; // Return 0 if product not found (you can handle this case as needed)
+}
+
+</script>
+
+</body>
+</html>
