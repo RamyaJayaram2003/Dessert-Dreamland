@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirm Delete</title>
+  <link rel="stylesheet" href="./css/dstyle.css">
+</head>
+<script>
+  function nxt(){
+          window.location.assign("view_user.html");
+      }
+</script>
+<body>
+  <div class="container">
+    <h1>Are you sure you want to delete?</h1>
+    <form id="delete" action="/delete" method="post">
+      <label for="name">Enter the name to confirm:</label>
+      <input type="text" id="name" name="name" required>
+      <button type="submit">Confirm Delete</button>
+    </form>
+  </div>
+  <button class="left-corner-button" onclick="nxt()">Back</button>
+
+</body>
+</html>
